@@ -94,11 +94,34 @@ body {
 }
 
 /* ---------- Header ---------- */
+/* stays at the top of the screen while the page scrolls.
+   The pink gradient is see-through and softly blurs whatever passes
+   underneath (frosted glass), fading out toward the bottom edge. */
 .site-header {
-  position: relative;
-  width: var(--page-width);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
   height: 165px;
-  margin: 0 auto;
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  /* --pink-primary -> --baby-pink, at 85% down to 0% opacity */
+  background: linear-gradient(
+    to bottom,
+    rgba(229, 140, 141, 0.95) 0,
+    rgba(241, 219, 216, 0.7) 55%,
+    rgba(241, 219, 216, 0) 100%
+  );
+  -webkit-backdrop-filter: blur(10px);
+  /* fade the blur out too, so there is no hard edge at the bottom */
+  -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 50%, transparent 100%);
 }
 
 .logo {
@@ -119,7 +142,7 @@ body {
 .menu-button {
   position: absolute;
   top: 40px;
-  left: 1314px;
+  left: calc(50% + 594px); /* 1314px on the 1440 grid, stays in the same spot on wider screens */
   width: 47px;
   height: 50px;
 }
@@ -250,8 +273,8 @@ body {
    back to the top always happens out of sight.
 
    --cycle is one full loop (4 couples x 528px = 2112px of travel).
-   60s is about 35px per second. Raise it for a slower drizzle (90s),
-   lower it for a heavier shower (40s). */
+   45s is about 47px per second. Raise it for a slower drizzle (60s),
+   lower it for a heavier shower (30s). */
 .matches-stage {
   --cycle: 45s;
 }
@@ -366,7 +389,7 @@ body {
 .card-name {
   position: absolute;
   z-index: 1;
-  top: 288px;
+  top: 294px; /* was 288px; raise or lower to nudge the names */
   left: 10px;
   width: 250px;
   text-align: center;
