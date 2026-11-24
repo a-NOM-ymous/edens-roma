@@ -1,193 +1,376 @@
-/* ---------- COLORS ---------- */
-:root {
-  --pink: #f1dbd8;
-  --pink-primary: #e58c8d;
-  --green: #8ca36c;
-  --cream: #fffae5;
-  --red: #ee3f23; /* approximate: check the exact red in Figma */
-}
+/* =========================================================
+   Eden's Roma: Home page
+   Built from Figma frame "Home Screen" (1440 x 1850, desktop)
+   ========================================================= */
 
-/* ---------- PAGE ---------- */
-body {
-  margin: 0;
-  background-color: var(--pink);
-  font-family: "Korolev", Arial, sans-serif;
+/* ---------- Fonts ----------
+   Korolev (Medium) and Cesso (Regular) are not web-safe.
+   Put the font files in /fonts and update the file names below,
+   or the fallbacks will be used. */
+@font-face {
+  font-family: "Korolev";
+  src: local("Korolev Medium"), local("Korolev-Medium"),
+       url("fonts/Korolev-Medium.woff2") format("woff2"),
+       url("fonts/Korolev-Medium.otf") format("opentype");
   font-weight: 500;
-  color: black;
+  font-style: normal;
+  font-display: swap;
 }
 
-/* ---------- HEADER ---------- */
-.site-header {
-  display: flex;
-  justify-content: space-between;
-  height: 120px;
-  padding: 25px 53px 0 53px;
-  background: linear-gradient(var(--pink-primary), var(--pink));
+@font-face {
+  font-family: "Cesso";
+  src: local("Cesso Regular"), local("Cesso-Regular"),
+       url("fonts/Cesso-Regular.woff2") format("woff2"),
+       url("fonts/Cesso-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-.apple {
+/* ---------- Design tokens ---------- */
+:root {
+  --baby-pink: #f1dbd8;     /* page background */
+  --pink-primary: #e58c8d;  /* card accents, header gradient */
+  --sage: #8ca36c;          /* green card accents + hero lines */
+  --apple-red: #ee3b22;     /* pattern borders */
+  --text: #000;
+
+  --font-body: "Korolev", "Trebuchet MS", "Segoe UI", sans-serif;
+  --font-heading: "Cesso", Georgia, "Times New Roman", serif;
+
+  --page-width: 1440px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body,
+h2,
+p,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+img {
   display: block;
-  width: 81px;
-  height: 73px;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- Page ---------- */
+body {
+  min-width: var(--page-width);
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1;
+  color: var(--text);
+  overflow-x: hidden;
+  /* pink fades in at the top and back out at the bottom */
+  background: linear-gradient(
+    to bottom,
+    var(--pink-primary) 0,
+    var(--baby-pink) 150px,
+    var(--baby-pink) calc(100% - 215px),
+    var(--pink-primary) 100%
+  );
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  position: relative;
+  width: var(--page-width);
+  height: 165px;
+  margin: 0 auto;
 }
 
 .logo {
-  display: block;
-  width: 436px;
-  height: 53px;
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 387px;
+  height: 50px;
 }
 
-/* Empty box the same width as the apple so the logo stays centered */
-.header-spacer {
-  width: 81px;
-}
-
-/* ---------- BANNER ---------- */
-.banner {
-  width: 1340px;
-  height: 450px;
-  margin: 90px auto 0 auto;
-  background-color: var(--cream);
-  border-top: 2px solid var(--green);
-  border-bottom: 2px solid var(--green);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.banner-text {
-  margin: 0;
-  font-size: 48px;
-}
-
-/* ---------- TAGLINE AND RED STRINGS ---------- */
-.string {
-  display: block;
+.logo img {
   width: 100%;
-}
-
-/* Pulls the first string up so it overlaps the bottom of the banner */
-.tagline .string:first-child {
-  margin-top: -42px;
-}
-
-.tagline-text {
-  margin: 56px 0 32px 0;
-  font-size: 48px;
-  font-weight: 500;
-  line-height: 58px;
-  text-align: center;
-}
-
-/* ---------- RECENT MATCHES ---------- */
-.recent-title {
-  margin: 110px 0 20px 0;
-  font-family: "Cesso", Georgia, serif;
-  font-size: 48px;
-  font-weight: 400;
-  line-height: 58px;
-  text-align: center;
-}
-
-.recent-pattern {
-  display: flex;
-  height: 712px;
-  overflow: hidden;
-  background-color: white;
-  background-image: url("images/pattern.png");
-  background-size: 360px 360px;
-  border-top: 4px solid var(--red);
-  border-bottom: 4px solid var(--red);
-}
-
-.left-column {
-  width: 678px;
-  margin-left: 110px;
-}
-
-.right-column {
-  width: 552px;
-}
-
-.card-row {
-  display: flex;
-  gap: 51px;
-}
-
-/* Spacing between the rows of cards */
-.first-row {
-  margin-top: 61px;
-}
-
-.bottom-row {
-  margin-top: 165px;
-  margin-left: 20px;
-}
-
-.second-row {
-  margin-top: 173px;
-}
-
-/* ---------- CARDS ---------- */
-
-/* Full card: pink card with a green border peeking out at the top left */
-.card-full {
-  width: 230px;
-  height: 305px;
-  padding: 10px;
-  border-radius: 30px;
-  background-color: var(--pink);
-  box-shadow: -10px -10px 0 var(--green);
-  text-align: center;
-}
-
-/* Card hanging down from the top edge of the pattern */
-.card-hanging {
-  width: 230px;
-  height: 163px;
-  padding: 0 10px;
-  border-radius: 0 0 30px 30px;
-  background-color: var(--pink);
-  box-shadow: -10px 12px 0 var(--pink-primary), -10px 0 0 var(--pink-primary);
-  text-align: center;
-}
-
-/* Card rising up from the bottom edge of the pattern */
-.card-peek {
-  width: 230px;
-  height: 153px;
-  padding: 10px 10px 0 10px;
-  border-radius: 30px 30px 0 0;
-  background-color: var(--pink);
-  /* First shadow sits up and to the left. Second shadow sits only to the left,
-     so the pink border reaches all the way down to the red line. */
-  box-shadow: -10px -12px 0 var(--pink-primary), -10px 0 0 var(--pink-primary);
-}
-
-.card-name {
-  margin: 12px 0 0 0;
-  font-size: 24px;
-  line-height: 29px;
-}
-
-/* ---------- CARD PHOTOS ---------- */
-.photo {
-  display: block;
-  width: 230px;
+  height: 100%;
   object-fit: cover;
 }
 
-.photo-full {
+.menu-button {
+  position: absolute;
+  top: 40px;
+  left: 1314px;
+  width: 47px;
+  height: 50px;
+}
+
+.menu-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.menu-button:hover,
+.menu-button:focus-visible {
+  transform: scale(1.08);
+}
+
+.menu-button:focus-visible {
+  outline: 2px solid var(--apple-red);
+  outline-offset: 4px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  width: 1340px;
+  height: 487px;
+  margin: 0 auto;
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* thin green rules with diamond end caps */
+.rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--sage);
+}
+
+.rule--top {
+  top: 0;
+}
+
+.rule--bottom {
+  bottom: -2px;
+}
+
+.rule::before,
+.rule::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: var(--sage);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.rule::before {
+  left: -5px;
+}
+
+.rule::after {
+  right: -5px;
+}
+
+/* ---------- Tagline + red string ---------- */
+.tagline {
+  margin-top: 53px; /* hero bottom (652) -> text (707) */
+  text-align: center;
+}
+
+.string {
+  position: relative;
+  width: 1484px;
+  max-width: none;
+  height: 105px;
+  margin-top: -3px;
+  margin-left: calc(50% - 742px + 0px);
+  pointer-events: none;
+}
+
+/* ---------- Recent matches ---------- */
+.matches h2 {
+  margin-top: 22px;
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: 36px;
+  text-align: center;
+}
+
+/* full-bleed white pattern band */
+.matches-field {
+  position: relative;
+  height: 720px;
+  margin-top: 27px;
+  overflow: hidden;
+  background-color: #fff;
+  background-image: url("images/apple-pattern.png");
+  background-size: 340px 366px;
+  background-position: -99px 0;
+  border-top: 2px solid var(--apple-red);
+  border-bottom: 2px solid var(--apple-red);
+}
+
+/* cards are positioned on the 1440px design grid */
+.matches-stage {
+  position: relative;
+  width: var(--page-width);
+  height: 100%;
+  margin: 0 auto;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  position: absolute;
+  width: 250px;
+}
+
+/* shared layers: green/pink offset block (::before) + pink body (::after) */
+.card::before,
+.card::after {
+  content: "";
+  position: absolute;
+  width: 250px;
+}
+
+.card-photo {
+  position: absolute;
+  z-index: 1;
+  object-fit: cover;
+}
+
+.card-name {
+  position: absolute;
+  z-index: 1;
+  width: 250px;
+  text-align: center;
+}
+
+/* ----- Full card (250 x 325 + 10px offset) ----- */
+.card--full {
+  height: 335px;
+}
+
+.card--full::before {
+  top: 0;
+  left: 0;
+  height: 325px;
+  background: var(--sage);
+  border-radius: 35px;
+}
+
+.card--full::after {
+  top: 10px;
+  left: 10px;
+  height: 325px;
+  background: var(--baby-pink);
+  border-radius: 30px;
+}
+
+.card--full .card-photo {
+  top: 20px;
+  left: 20px;
+  width: 230px;
   height: 256px;
   border-radius: 20px;
 }
 
-.photo-hanging {
-  height: 104px;
-  border-radius: 0 0 20px 20px;
+.card--full .card-name {
+  top: 288px;
+  left: 10px;
 }
 
-.photo-peek {
+/* positions (x, y relative to the pattern band; band starts at y=915 in Figma) */
+.card--lumin  { left: 100px; top: 53px; }
+.card--cronan { left: 401px; top: 53px; }
+.card--gray   { left: 778px; top: 328px; }
+.card--harper { left: 1080px; top: 328px; }
+
+/* ----- Card peeking in from the top (upside-down tab) ----- */
+.card--top {
+  height: 175px;
+}
+
+.card--top::before {
+  top: 0;
+  left: 0;
+  height: 175px;
+  background: var(--pink-primary);
+  border-radius: 0 0 35px 35px;
+}
+
+.card--top::after {
+  top: 0;
+  left: 10px;
+  height: 163px;
+  background: var(--baby-pink);
+  border-radius: 0 0 30px 30px;
+}
+
+.card--top .card-photo {
+  top: 0;
+  left: 20px;
+  width: 230px;
+  height: 104px;
+  border-radius: 0 0 20px 20px;
+  object-position: center bottom;
+}
+
+.card--top .card-name {
+  top: 114px;
+  left: 10px;
+}
+
+.card--ash  { left: 778px; top: 0; }
+.card--liam { left: 1080px; top: 0; }
+
+/* ----- Card peeking in from the bottom ----- */
+.card--bottom {
+  height: 175px;
+}
+
+.card--bottom::before {
+  top: 0;
+  left: 0;
+  height: 175px;
+  background: var(--pink-primary);
+  border-radius: 35px 35px 0 0;
+}
+
+.card--bottom::after {
+  top: 12px;
+  left: 10px;
+  height: 163px;
+  background: var(--baby-pink);
+  border-radius: 30px 30px 0 0;
+}
+
+.card--bottom .card-photo {
+  top: 22px;
+  left: 20px;
+  width: 230px;
   height: 153px;
   border-radius: 20px 20px 0 0;
+  object-position: center top;
+}
+
+.card--bottom-left  { left: 120px; top: 541px; }
+.card--bottom-right { left: 423px; top: 541px; }
+
+/* ---------- Footer spacer (gradient shows through) ---------- */
+.site-footer {
+  height: 215px;
 }

@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Eden's Roma</title>
-
-  <!-- FONTS: Korolev and Cesso are not on Google Fonts.
-       Paste your Adobe Fonts stylesheet link here, for example:
-       <link rel="stylesheet" href="https://use.typekit.net/YOUR-KIT-ID.css"> -->
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Eden's Roma | Helping you find the one</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+  <!-- Header: logo + apple menu button -->
   <header class="site-header">
-    <a href="index.html">
-      <img class="apple" src="images/apple.png" alt="Eden's Roma apple">
+    <a class="logo" href="index.html">
+      <img src="images/logo.png" alt="Eden's Roma">
     </a>
-    <img class="logo" src="images/logo.png" alt="Eden's Roma">
-    <div class="header-spacer"></div>
+    <a class="menu-button" href="#" aria-label="Open menu">
+      <img src="images/apple-menu.png" alt="">
+    </a>
   </header>
 
   <main>
-
-    <!-- Banner: replace the text with an img tag once you have your photo,
-         for example: <img class="banner-photo" src="images/banner.jpg" alt="..."> -->
-    <section class="banner">
-      <p class="banner-text">Insert Photo</p>
+    <!-- Hero banner -->
+    <section class="hero" aria-label="Welcome">
+      <span class="rule rule--top" aria-hidden="true"></span>
+      <img class="hero-img" src="images/cover-photo.png"
+           alt="Helping you find the one. We exist for you. A couple touches foreheads, holding a bouquet.">
+      <span class="rule rule--bottom" aria-hidden="true"></span>
     </section>
 
-    <section class="tagline">
-      <img class="string" src="images/bottom-string.svg" alt="">
-      <h1 class="tagline-text">Your path to finding the right one</h1>
-      <img class="string" src="images/top-string.svg" alt="">
-    </section>
+    <p class="tagline">It&rsquo;s all about finding your perfect half</p>
 
-    <section class="recent">
-      <h2 class="recent-title">Our Most Recent Matches</h2>
+    <img class="string" src="images/top-string.svg" alt="" aria-hidden="true">
 
-      <div class="recent-pattern">
+    <!-- Recent matches -->
+    <section class="matches" aria-labelledby="matches-title">
+      <h2 id="matches-title">Our Most Recent Matches</h2>
 
-        <!-- Left column -->
-        <div class="left-column">
-          <div class="card-row first-row">
-            <article class="card-full">
-              <img class="photo photo-full" src="images/lumin.jpg" alt="Lumin Khan">
-              <p class="card-name">Lumin Khan</p>
-            </article>
-            <article class="card-full">
-              <img class="photo photo-full" src="images/cronan.jpg" alt="Cronan Chen">
-              <p class="card-name">Cronan Chen</p>
-            </article>
-          </div>
+      <div class="matches-field">
+        <ul class="matches-stage">
 
-          <div class="card-row bottom-row">
-            <article class="card-peek">
-              <img class="photo photo-peek" src="images/couple-1.jpg" alt="Match">
-            </article>
-            <article class="card-peek">
-              <img class="photo photo-peek" src="images/couple-2.jpg" alt="Match">
-            </article>
-          </div>
-        </div>
+          <!-- Full cards -->
+          <li class="card card--full card--lumin">
+            <img class="card-photo" src="images/lumin-khan.png" alt="Portrait of Lumin Khan">
+            <p class="card-name">Lumin Khan</p>
+          </li>
 
-        <!-- Right column -->
-        <div class="right-column">
-          <div class="card-row">
-            <article class="card-hanging">
-              <img class="photo photo-hanging" src="images/ash.jpg" alt="Ash Renn">
-              <p class="card-name">Ash Renn</p>
-            </article>
-            <article class="card-hanging">
-              <img class="photo photo-hanging" src="images/liam.jpg" alt="Liam Astell">
-              <p class="card-name">Liam Astell</p>
-            </article>
-          </div>
+          <li class="card card--full card--cronan">
+            <img class="card-photo" src="images/cronan-chen.png" alt="Portrait of Cronan Chen">
+            <p class="card-name">Cronan Chen</p>
+          </li>
 
-          <div class="card-row second-row">
-            <article class="card-full">
-              <img class="photo photo-full" src="images/gray.jpg" alt="Gray Argol">
-              <p class="card-name">Gray Argol</p>
-            </article>
-            <article class="card-full">
-              <img class="photo photo-full" src="images/harper.jpg" alt="Harper Joan">
-              <p class="card-name">Harper Joan</p>
-            </article>
-          </div>
-        </div>
+          <li class="card card--full card--gray">
+            <img class="card-photo" src="images/gray-argol.png" alt="Portrait of Gray Argol">
+            <p class="card-name">Gray Argol</p>
+          </li>
 
+          <li class="card card--full card--harper">
+            <img class="card-photo" src="images/harper-joan.png" alt="Portrait of Harper Joan">
+            <p class="card-name">Harper Joan</p>
+          </li>
+
+          <!-- Cards peeking in from the top edge -->
+          <li class="card card--top card--ash">
+            <img class="card-photo" src="images/ash-renn.png" alt="Portrait of Ash Renn">
+            <p class="card-name">Ash Renn</p>
+          </li>
+
+          <li class="card card--top card--liam">
+            <img class="card-photo" src="images/liam-astell.png" alt="Portrait of Liam Astell">
+            <p class="card-name">Liam Astell</p>
+          </li>
+
+          <!-- Cards peeking in from the bottom edge -->
+          <li class="card card--bottom card--bottom-left">
+            <img class="card-photo" src="images/match-bottom-left.png" alt="Portrait of a recent match">
+          </li>
+
+          <li class="card card--bottom card--bottom-right">
+            <img class="card-photo" src="images/match-bottom-right.png" alt="Portrait of a recent match">
+          </li>
+
+        </ul>
       </div>
     </section>
-
   </main>
+
+  <footer class="site-footer"></footer>
 
 </body>
 </html>
