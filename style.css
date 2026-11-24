@@ -55,7 +55,8 @@
 body,
 h2,
 p,
-ul {
+ul,
+figure {
   margin: 0;
 }
 
@@ -221,6 +222,9 @@ body {
   margin-top: 27px;
   overflow: hidden;
   background-color: #fff;
+  /* full pattern export (4293 x 1711), scaled so its height fills the 720px band.
+     That puts the apples ~153px apart across and ~88px apart down, like the Figma frame.
+     It is centered and repeats sideways so it fills the band on any screen width. */
   background-image: url("images/apple-pattern.png");
   background-repeat: repeat-x;
   background-origin: border-box;
@@ -238,143 +242,135 @@ body {
   margin: 0 auto;
 }
 
-/* ---------- Cards ---------- */
-.card {
-  position: absolute;
-  width: 250px;
+/* ---------- Couples + gentle rain ----------
+   Two columns of couples drift down together, slowly and without stopping,
+   like rain. Every couple stays in its own column. Each column repeats its two
+   couples (A, B, A, B) spaced 528px apart. That spacing is just wide enough
+   that the same couple is never on screen twice, and the jump from the bottom
+   back to the top always happens out of sight.
+
+   --cycle is one full loop (4 couples x 528px = 2112px of travel).
+   60s is about 35px per second. Raise it for a slower drizzle (90s),
+   lower it for a heavier shower (40s). */
+.matches-stage {
+  --cycle: 45s;
 }
 
-/* shared layers: green/pink offset block (::before) + pink body (::after) */
+.column {
+  position: absolute;
+  top: 0;
+  width: 552px;
+  height: 100%;
+}
+
+.column--left  { left: 100px; --gap: 301px; }
+.column--right { left: 778px; --gap: 302px; }
+
+.couple {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 335px;
+  transform: translate3d(0, var(--rest), 0); /* starting spot, also used if motion is off */
+  animation-duration: var(--cycle);
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; /* steady speed, no stopping or easing */
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.column--left  .couple { animation-name: rain-left; }
+.column--right .couple { animation-name: rain-right; }
+
+/* starting spots match the layout; each couple starts a quarter-loop apart */
+.column--left .couple:nth-child(1)  { --rest: -473px; --delay: 0s; }
+.column--left .couple:nth-child(2)  { --rest: 55px;   --delay: calc(var(--cycle) * -0.25); }
+.column--left .couple:nth-child(3)  { --rest: 583px;  --delay: calc(var(--cycle) * -0.5); }
+.column--left .couple:nth-child(4)  { --rest: 1111px; --delay: calc(var(--cycle) * -0.75); }
+
+.column--right .couple:nth-child(1) { --rest: -686px; --delay: 0s; }
+.column--right .couple:nth-child(2) { --rest: -158px; --delay: calc(var(--cycle) * -0.25); }
+.column--right .couple:nth-child(3) { --rest: 370px;  --delay: calc(var(--cycle) * -0.5); }
+.column--right .couple:nth-child(4) { --rest: 898px;  --delay: calc(var(--cycle) * -0.75); }
+
+/* one long, even drop; the 100% -> 0% jump happens off-screen */
+@keyframes rain-left {
+  from { transform: translate3d(0, -473px, 0); }
+  to   { transform: translate3d(0, 1639px, 0); }
+}
+
+@keyframes rain-right {
+  from { transform: translate3d(0, -686px, 0); }
+  to   { transform: translate3d(0, 1426px, 0); }
+}
+
+/* respect reduced-motion settings: show the still layout */
+@media (prefers-reduced-motion: reduce) {
+  .couple {
+    animation: none;
+  }
+}
+
+/* ---------- Cards ---------- */
+.couple--green { --accent: var(--sage); }
+.couple--pink  { --accent: var(--pink-primary); }
+
+.card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 335px;
+}
+
+.card + .card {
+  left: var(--gap);
+}
+
+/* accent block (::before) + pink body offset 10px (::after) */
 .card::before,
 .card::after {
   content: "";
   position: absolute;
   width: 250px;
+  height: 325px;
+}
+
+.card::before {
+  top: 0;
+  left: 0;
+  background: var(--accent);
+  border-radius: 35px;
+}
+
+.card::after {
+  top: 10px;
+  left: 10px;
+  background: var(--baby-pink);
+  border-radius: 30px;
 }
 
 .card-photo {
   position: absolute;
   z-index: 1;
+  top: 20px;
+  left: 20px;
+  width: 230px;
+  height: 256px;
   object-fit: cover;
+  border-radius: 20px;
 }
 
 .card-name {
   position: absolute;
   z-index: 1;
+  top: 288px;
+  left: 10px;
   width: 250px;
   text-align: center;
 }
-
-/* ----- Full card (250 x 325 + 10px offset) ----- */
-.card--full {
-  height: 335px;
-}
-
-.card--full::before {
-  top: 0;
-  left: 0;
-  height: 325px;
-  background: var(--sage);
-  border-radius: 35px;
-}
-
-.card--full::after {
-  top: 10px;
-  left: 10px;
-  height: 325px;
-  background: var(--baby-pink);
-  border-radius: 30px;
-}
-
-.card--full .card-photo {
-  top: 20px;
-  left: 20px;
-  width: 230px;
-  height: 256px;
-  border-radius: 20px;
-}
-
-.card--full .card-name {
-  top: 288px;
-  left: 10px;
-}
-
-/* positions (x, y relative to the pattern band; band starts at y=915 in Figma) */
-.card--lumin  { left: 100px; top: 53px; }
-.card--cronan { left: 401px; top: 53px; }
-.card--gray   { left: 778px; top: 328px; }
-.card--harper { left: 1080px; top: 328px; }
-
-/* ----- Card peeking in from the top (upside-down tab) ----- */
-.card--top {
-  height: 175px;
-}
-
-.card--top::before {
-  top: 0;
-  left: 0;
-  height: 175px;
-  background: var(--pink-primary);
-  border-radius: 0 0 35px 35px;
-}
-
-.card--top::after {
-  top: 0;
-  left: 10px;
-  height: 163px;
-  background: var(--baby-pink);
-  border-radius: 0 0 30px 30px;
-}
-
-.card--top .card-photo {
-  top: 0;
-  left: 20px;
-  width: 230px;
-  height: 104px;
-  border-radius: 0 0 20px 20px;
-  object-position: center bottom;
-}
-
-.card--top .card-name {
-  top: 114px;
-  left: 10px;
-}
-
-.card--ash  { left: 778px; top: 0; }
-.card--liam { left: 1080px; top: 0; }
-
-/* ----- Card peeking in from the bottom ----- */
-.card--bottom {
-  height: 175px;
-}
-
-.card--bottom::before {
-  top: 0;
-  left: 0;
-  height: 175px;
-  background: var(--pink-primary);
-  border-radius: 35px 35px 0 0;
-}
-
-.card--bottom::after {
-  top: 12px;
-  left: 10px;
-  height: 163px;
-  background: var(--baby-pink);
-  border-radius: 30px 30px 0 0;
-}
-
-.card--bottom .card-photo {
-  top: 22px;
-  left: 20px;
-  width: 230px;
-  height: 153px;
-  border-radius: 20px 20px 0 0;
-  object-position: center top;
-}
-
-.card--bottom-left  { left: 120px; top: 541px; }
-.card--bottom-right { left: 423px; top: 541px; }
 
 /* ---------- Footer spacer (gradient shows through) ---------- */
 .site-footer {
