@@ -77,6 +77,11 @@ a {
 /* ---------- Page ---------- */
 body {
   min-width: var(--page-width);
+  /* Shrink the whole 1440px layout to fit windows narrower than 1440px, so the
+     page stays centered instead of getting cut off. The 17px leaves room for
+     the scrollbar. On wider windows the value stays 1 (no change).
+     Older browsers ignore this line and just scroll sideways. */
+  zoom: min(1, tan(atan2(100vw - 17px, 1440px)));
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 24px;
@@ -111,7 +116,7 @@ body {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  /* --pink-primary -> --baby-pink, at 85% down to 0% opacity */
+  /* --pink-primary -> --baby-pink, at 95% down to 0% opacity */
   background: linear-gradient(
     to bottom,
     rgba(229, 140, 141, 0.95) 0,
@@ -119,6 +124,7 @@ body {
     rgba(241, 219, 216, 0) 100%
   );
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   /* fade the blur out too, so there is no hard edge at the bottom */
   -webkit-mask-image: linear-gradient(to bottom, #000 50%, transparent 100%);
   mask-image: linear-gradient(to bottom, #000 50%, transparent 100%);
