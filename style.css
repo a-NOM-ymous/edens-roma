@@ -4,28 +4,9 @@
    ========================================================= */
 
 /* ---------- Fonts ----------
-   Korolev (Medium) and Cesso (Regular) are not web-safe.
-   Put the font files in /fonts and update the file names below,
-   or the fallbacks will be used. */
-@font-face {
-  font-family: "Korolev";
-  src: local("Korolev Medium"), local("Korolev-Medium"),
-       url("fonts/Korolev-Medium.woff2") format("woff2"),
-       url("fonts/Korolev-Medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cesso";
-  src: local("Cesso Regular"), local("Cesso-Regular"),
-       url("fonts/Cesso-Regular.woff2") format("woff2"),
-       url("fonts/Cesso-Regular.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+   Korolev (Medium 500, Bold 700) and Cesso (Regular 400) both come from
+   Adobe Fonts, linked in the <head> of index.html (use.typekit.net).
+   No font files or fonts/ folder needed. */
 
 /* ---------- Design tokens ---------- */
 :root {
@@ -41,8 +22,8 @@
   --page-width: 1440px;
 
   /* hero rules: change --rule-thickness to make the green lines thicker */
-  --rule-thickness: 8px;
-  --rule-cap-size: 24px; /* diamond end caps */
+  --rule-thickness: 5px;
+  --rule-cap-size: 20px; /* diamond end caps */
 }
 
 /* ---------- Reset ---------- */
@@ -399,6 +380,8 @@ body {
   left: 10px;
   width: 250px;
   text-align: center;
+  font-weight: 700;
+  color: var(--accent); /* green on green cards, pink on pink cards */
 }
 
 /* ---------- Footer spacer (gradient shows through) ---------- */
