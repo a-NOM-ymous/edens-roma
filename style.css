@@ -14,7 +14,7 @@
   --pink-primary: #e58c8d;  /* card accents, header gradient */
   --sage: #8ca36c;          /* green card accents + hero lines */
   --apple-red: #ee3b22;     /* pattern borders */
-  --text: #000;
+  --text: #223260;
 
   --font-body: "Korolev", "Trebuchet MS", "Segoe UI", sans-serif;
   --font-heading: "Cesso", Georgia, "Times New Roman", serif;
@@ -223,6 +223,7 @@ body {
   font-weight: 400;
   font-size: 36px;
   text-align: center;
+  -webkit-text-stroke: 0.50px currentColor
 }
 
 /* full-bleed white pattern band */
